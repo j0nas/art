@@ -1,0 +1,25 @@
+.canvas {
+    width: 400px;
+    height: 400px;
+
+    box-sizing: border-box;
+    float: left;
+}
+
+.bd {
+    border: 1px solid #EEE;
+}
+
+.controls {
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+
+    display: inline-block;
+    box-sizing: border-box;
+    clear: both;
+}
+
+.block {
+    display: block;
+}

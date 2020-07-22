@@ -1,0 +1,16 @@
+{
+  "name": "art",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "live-server ."
+  },
+  "keywords": [],
+  "author": "Jonas Jensen <jonas.jensen@msn.com> (https://jonas-jensen.com/)",
+  "license": "ISC",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
