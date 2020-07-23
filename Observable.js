@@ -20,6 +20,10 @@ class Observable {
         this._intervalFn = config.intervalFn;
         this._setInterval();
       }
+
+      if (config.name) {
+        this._name = config.name;
+      }
     }
   }
 
@@ -31,6 +35,10 @@ class Observable {
     this._value = value;
     this._changeListeners.forEach(listener => listener(this._value))
     this._setInterval(this._value)
+  }
+
+  get name() {
+    return this._name;
   }
 
   addListener(listener) {
