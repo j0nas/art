@@ -8,42 +8,30 @@ const height = canvas.height;
 const centerX = width / 2;
 const centerY = height / 2;
 
-const rand = multiplier => Math.random() * multiplier;
-
-let state = {
-  x1: centerX,
-  y1: centerY,
-  x2: rand(centerX),
-  y2: rand(centerY),
+const state = {
+  x: centerX,
+  y: centerY,
+  width: 50,
+  height: 50,
   directionX: false,
   directionY: false
 };
 
-const paint = () => ctx.strokeRect(state.x1, state.y1, state.x2, state.y2);
+const rand = multiplier => Math.random() * multiplier;
+const coinFlip = (func1, func2) => rand(2) > 1 ? func1() : func2();
+
+const paint = () => ctx.strokeRect(state.x, state.y, state.width, state.height);
 const setColor = () => ctx.strokeStyle = `rgb(${rand(255)},${rand(255)},${rand(255)})`
 
-const coinFlip = (func1, func2) => rand(2) > 1 ? func1() : func2();
 const setDirectionX = () => coinFlip(() => state.directionX = true, () => state.directionX = false)
 const setDirectionY = () => coinFlip(() => state.directionY = true, () => state.directionY = false)
 
-const increaseX = () => {
-  if (state.x1 < width) state.x1++; else { setDirectionX(); setColor(); }
-  if (state.x2 < width) state.x2++; else { setDirectionX(); setColor(); }
-}
-const decreaseX = () => {
-  if (state.x1 > 0) state.x1--; else { setDirectionX(); setColor(); }
-  if (state.x2 > 0) state.x2--; else { setDirectionX(); setColor(); }
-}
+const increaseX = () => { if (state.x < width) state.x++; else { setDirectionX(); setColor(); } }
+const decreaseX = () => { if (state.x > 0) state.x--; else { setDirectionX(); setColor(); } }
 const mutateX = () => state.directionX ? increaseX() : decreaseX();
 
-const increaseY = () => {
-  if (state.y1 < height) state.y1++; else { setDirectionY(); setColor(); }
-  if (state.y2 < height) state.y2++; else { setDirectionY(); setColor(); }
-}
-const decreaseY = () => {
-  if (state.y1 > 0) state.y1--; else { setDirectionY(); setColor(); }
-  if (state.y2 > 0) state.y2--; else { setDirectionY(); setColor(); }
-}
+const increaseY = () => { if (state.y < height) state.y++; else { setDirectionY(); setColor(); } }
+const decreaseY = () => { if (state.y > 0) state.y--; else { setDirectionY(); setColor(); } }
 const mutateY = () => state.directionY ? increaseY() : decreaseY();
 const setCoord = () => { mutateX(); mutateY(); };
 
@@ -69,6 +57,8 @@ function createLabel(stateFieldName, updateFrequency) {
 }
 
 (function() {
+  setCoord();
+  paint()
   const paintInterval = new Observable(10, { intervalFn: paint });
   // const colorInterval = new Observable(1000, { intervalFn: setColor });
   const coordInterval = new Observable(10, { intervalFn: setCoord });
