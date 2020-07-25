@@ -14,27 +14,21 @@ class Observable {
 
   constructor(value, config) {
     this._value = value;
-
     if (config) {
       if (config.intervalFn) {
         this._intervalFn = config.intervalFn;
         this._setInterval();
       }
-
-      if (config.name) {
-        this._name = config.name;
-      }
+      if (config.name) { this._name = config.name; }
     }
   }
 
-  get() {
-    return this._value;
-  }
-
-  set(value) {
+  get value() { return this._value; }
+  set value(value) {
     this._value = value;
     this._changeListeners.forEach(listener => listener(this._value))
-    this._setInterval(this._value)
+    this._setInterval(this.value)
+    console.log(`Set ${this.name} to ${this.value}`)
   }
 
   get name() {

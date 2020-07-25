@@ -41,11 +41,8 @@ const mutateY = () => state.directionY ? increaseY() : decreaseY();
 function createField(fieldName, observable) {
   const inputElement = document.createElement('input');
   inputElement.classList.add('block', 'input')
-  inputElement.placeholder = `${fieldName} (default: ${observable.get()})`;
-  inputElement.onchange = e => {
-    observable.set(Number(e.target.value));
-    console.log(`Set ${fieldName} to ${observable.get()}`);
-  };
+  inputElement.placeholder = `${fieldName} (default: ${observable.value})`;
+  inputElement.onchange = e => { if (e.target.value) { observable.value = Number(e.target.value); } };
 
   document.getElementById('controls').append(inputElement);
   return inputElement;
